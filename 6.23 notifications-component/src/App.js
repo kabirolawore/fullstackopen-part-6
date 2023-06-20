@@ -3,6 +3,7 @@ import Notification from './components/Notification';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getAnecdotes, updateAnecdote } from './requests';
 import { useReducer } from 'react';
+import AnecdoteContext from './AnecdoteContext';
 
 const App = () => {
   //
@@ -19,7 +20,7 @@ const App = () => {
 
   const [notification, notificationDispatch] = useReducer(
     notificationReducer,
-    ''
+    {}
   );
 
   //
@@ -57,11 +58,10 @@ const App = () => {
     <div>
       <h3>Anecdote app</h3>
 
-      <Notification
-        notification={notification}
-        dispatch={notificationDispatch}
-      />
-      <AnecdoteForm dispatch={notificationDispatch} />
+      <AnecdoteContext.Provider value={[notification, notificationDispatch]}>
+        <Notification />
+        <AnecdoteForm />
+      </AnecdoteContext.Provider>
 
       {anecdotes.map((anecdote) => (
         <div key={anecdote.id}>

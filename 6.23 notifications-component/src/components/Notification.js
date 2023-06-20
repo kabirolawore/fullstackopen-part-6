@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
+import { useContext } from 'react';
+import AnecdoteContext from '../AnecdoteContext';
 
-const Notification = ({ notification, dispatch }) => {
+const Notification = () => {
   //
+
+  const [notification, dispatch] = useContext(AnecdoteContext);
 
   const alert = notification.message;
 
